@@ -10,4 +10,7 @@ sites/*/private
 .DS-store
 
 .sass-cached
+<<<<<<< HEAD
 settings.php
+=======
+>>>>>>> abbd9bb783e9c4074306f64e762becad2eb5078e
