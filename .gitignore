@@ -1,16 +1,7 @@
-# Ignore configuration files that may contain sensitive information.
-sites/*/settings*.php
-
-# Ignore paths that contain user-generated content.
-sites/*/files
-sites/*/private
-
 .htaccess
 
 .DS-store
 
 .sass-cached
-<<<<<<< HEAD
+
 settings.php
-=======
->>>>>>> abbd9bb783e9c4074306f64e762becad2eb5078e
