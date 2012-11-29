@@ -5,7 +5,7 @@
   
   <div style="text-align: center; margin-top: 60px; font-size: 14px; line-height: 1.4em;">
     We are putting the finishing touches on the new site </br>
-    For news visit our <a href="https://www.facebook.com/BerkeleySupply?fref=ts">facebook</a> page
+    For news visit our <a href="http://www.facebook.com/BerkeleySupplyCO">facebook</a> page
     </br></br></br>
     Talk soon!
   </div>
