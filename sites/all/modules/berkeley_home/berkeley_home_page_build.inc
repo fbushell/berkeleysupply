@@ -10,7 +10,7 @@ function berkeley_home_page_build(){
 
 	// Init vars
 	$module_path = drupal_get_path('module','berkeley_home');
-	$html = 'hello';
+	$html = '';
 	
 	
 	 // Build MySQL Query Statement
@@ -29,6 +29,14 @@ function berkeley_home_page_build(){
 	// Adding javascript for fitvid
 	//$js_path = "$module_path/js/jquery.fitvids.js";
 	//drupal_add_js($js_path);
+
+	$html = "
+		<div class=\"content\">
+			<div class=\"about\">
+				<p>Yo this is the store, what of it</p>
+			</div>
+		</div>
+	";
 	
 
 	return $html; 
