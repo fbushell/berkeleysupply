@@ -1,0 +1,280 @@
+<?php
+
+/**
+ * @file
+ * The define project entities.
+ */
+
+/**
+ * Implements hook_entity_info().
+ *
+ * @return
+ *   Array of entity info arrays.
+ */
+function berkeley_items_entity_info() {
+	
+	// Init
+	$entities = array();
+
+	// Home Page
+	$entities['home_page'] = array(
+		'label' => t('Home Page'),
+		'base table' => 'berkely_home_page',
+		'dashboard' => array('primary'),
+		'multi_img' => array(
+			'slider' => array(
+				'label' => 'Slider Images',
+				'limit' => 4,
+			),
+		),
+	);
+
+	// Testimonial Item
+	$entities['testimonial'] = array(
+		'label' => t('Testimonial'),
+		'base table' => 'degrees_testimonial',
+		'dashboard' => array(
+			'add',
+			'table',
+		),
+	);
+
+	// Product Item
+	$entities['product'] = array(
+		'label' => t('Product'),
+		'base table' => 'degrees_product',
+		'dashboard' => array(
+			'add',
+			'table',
+		),
+	);
+	
+	// Product Page
+	$entities['product_page'] = array(
+		'label' => t('Product Page'),
+		'base table' => 'degrees_product_page',
+		'dashboard' => array('primary'),
+	);
+
+	// Recipe Item
+	$entities['recipe'] = array(
+		'label' => t('Recipe'),
+		'base table' => 'degrees_recipe',
+		'dashboard' => array(
+			'add',
+			'table',
+		),
+	);
+	
+	// Recipe Page
+	$entities['recipe_page'] = array(
+		'label' => t('Recipe Page'),
+		'base table' => 'degrees_recipe_page',
+		'dashboard' => array('primary'),
+	);
+	
+	// Company page
+	$entities['company_page'] = array(
+		'label' => t('Company Page'),
+		'base table' => 'degrees_company_page',
+		'dashboard' => array('primary'),
+		'children' => array(
+			'company_section' => 'Company Section',
+			'employee' => 'Employee',
+		),
+	);
+
+	/**
+	 * Company section
+	 *
+	 * Child of company page
+	*/
+	$entities['company_section'] = array(
+		'label' => t('Company Section'),
+		'base table' => 'degrees_company_section',
+		'children' => array(
+			'company_item' => 'Company Item',
+		),
+	);
+
+	/**
+	 * Company Item
+	 *
+	 * Child of company section
+	 */
+	$entities['company_item'] = array(
+		'label' => t('Company Item'),
+		'base table' => 'degrees_company_item',
+	);
+
+	/**
+	 * Employees
+	 *
+	 * Children of company_page
+	 */
+	$entities['employee'] = array(
+		'label' => t('Employee'),
+		'base table' => 'degrees_employee',
+	);
+
+	// Buy Page
+	$entities['buy_page'] = array(
+		'label' => t('Buy Page'),
+		'base table' => 'degrees_buy_page',
+		'dashboard' => array('primary'),
+	);
+
+	// Location
+	$entities['location'] = array(
+		'label' => t('Location'),
+		'base table' => 'degrees_location',
+		'dashboard' => array(
+			'add',
+			'table',
+		),
+	);
+
+	// Store Logo
+	$entities['store_logo'] = array(
+		'label' => t('Store Logo'),
+		'base table' => 'degrees_store_logo',
+		'dashboard' => array(
+			'add',
+			'table',
+			'weight',
+		),
+	);
+
+	// Contact Page
+	$entities['contact_page'] = array(
+		'label' => t('Contact Page'),
+		'base table' => 'degrees_contact_page',
+		'dashboard' => array('primary'),
+	);
+	
+	// Terms Privacy
+	$entities['terms_privacy'] = array(
+		'label' => t('Terms and Privacy'),
+		'base table' => 'degrees_terms_privacy',
+		'dashboard' => array('primary'),
+	);
+	
+	// Trade page
+	$entities['trade_page'] = array(
+		'label' => t('Trade Page'),
+		'base table' => 'degrees_trade_page',
+		'dashboard' => array('primary'),
+		'children' => array(
+			'trade_item' => 'Trade Item',
+		),
+	);
+	
+	// Trade Item
+	$entities['trade_item'] = array(
+		'label' => t('Trade Item'),
+		'base table' => 'degrees_trade_item',
+		'multi_file' => array(
+			'download' => array(
+				'label' => 'File Download',
+			),
+		),
+	);
+	
+	// Blog Item
+	$entities['blog'] = array(
+		'label' => t('Blog'),
+		'base table' => 'degrees_blog',
+		'dashboard' => array(
+		  'add',
+		  'table',
+		),
+		'multi_img' => array(
+			'slider' => array(
+				'label' => 'Blog Images',
+				'limit' => 5,
+			),
+		),
+	);
+
+	// News Item
+	$entities['news'] = array(
+		'label' => t('News'),
+		'base table' => 'degrees_news',
+		'dashboard' => array(
+		  'add',
+		  'table',
+		),
+	);
+
+	/**
+	 * Default entity options.
+	 *
+	 * This array will be added to each entity array.
+	 */
+	$defaults = array(
+		'controller class' => 'cirroCoreController',
+		'fieldable' => FALSE,
+		'entity keys' => array(
+			'id' => 'id',
+		),
+		'static cache' => TRUE,
+	);
+	
+	// Loop through entities
+	foreach ( $entities as $index => $entity ) {
+		
+		// Merge defaults array
+		$entities[$index] = array_merge($defaults, $entity);
+		
+	}
+
+	
+	return $entities;
+
+}
+
+
+/**
+ * Update recipe product options based on current products.
+ */
+function degrees_items_form_cirro_core_entity_edit_form_alter(&$form, &$form_state, $form_id) {
+	
+	// Only act on recipe type forms
+	if ( $form['type']['#value'] === 'recipe' ) {
+	
+		// Init
+		$product_options = array();
+		
+		// Query products
+		$query_string = "
+			SELECT title
+				FROM degrees_product
+		";
+		
+		$query = db_query($query_string);
+		
+		$product_titles = $query->fetchCol();
+		
+		// Loop through product titles to create product options
+		foreach ( $product_titles as $title ) {
+			
+			// Build mach_title
+			$mach_title = strtolower( str_replace(' ', '-', $title));
+			
+			// Add to product options
+			$product_options[$mach_title] = $title;
+			
+		}
+		
+		// Replace product options with array
+		$form['product']['#options'] = $product_options;
+		
+	}
+	
+}
+ 
+ 
+ 
+ 
+ 
+

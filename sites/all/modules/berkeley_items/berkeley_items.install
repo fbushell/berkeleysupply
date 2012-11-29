@@ -1,0 +1,1164 @@
+
+<?php
+
+/**
+ * @file
+ * Schema info, updates and any other install/uninstall tasks.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function berkeley_items_schema() {
+	
+	// Init
+	$schema = array();
+	$product_options = array();
+	$types = array(
+		'savory' => 'Savory',
+		'sweet' => 'Sweet',
+	);
+
+	// HOME PAGE
+	$schema['berkely_home_page'] = array(
+
+		'description' => 'Base table for home_page',
+
+		'fields' => array(
+
+			// CtA title text
+			'cta_title'  => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Call to Action Title',
+				),
+			),
+
+			// CtA image
+			'cta_img' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'Call to Action Image',
+					'#upload_location' => 'public://cta_img',
+					'#upload_validators' => array(
+					  'file_validate_size' => array(1048576),
+					 ),
+				),
+			),
+			
+			// CtA body text
+			'cta_body' => array(
+				'type' => 'text',
+				'size' => 'medium',
+				'form' => array(
+					'#type' => 'textarea',
+					'#title' => 'Call to Action Body Text',
+				),
+			),
+			
+			// Recipe body text
+			'recipe_body' => array(
+				'type' => 'text',
+				'size' => 'medium',
+				'form' => array(
+					'#type' => 'textarea',
+					'#title' => 'Recipe Body Text',
+				),
+			),
+
+		),
+
+	);// /home_page
+
+	// Testimonial Items
+	$schema['degrees_testimonial'] = array(
+	
+		'description' => 'Base table for testimonials',
+		
+		'fields' => array(
+		
+			// Name of submitter
+			'title' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Name',
+					'#description' => 'Submitted by:',
+					'#required' => TRUE,
+				),
+			),
+			
+			// Location
+			'location' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Location',
+					'#required' => TRUE,
+				),
+			),
+			
+			// Body text
+			'body' => array(
+				'type' => 'text',
+				'size' => 'medium',
+				'form' => array(
+					'#type' => 'textarea',
+					'#title' => 'Body Text',
+					'#required' => TRUE,
+				),
+			),
+	
+		),
+	
+	);// /testimonial
+	
+	// Product Items
+	$schema['degrees_product'] = array(	
+	
+		'description' => 'Base table for products.',
+		
+		'fields' => array(
+
+			// Product Title
+			'title' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Title',
+					'#required' => TRUE,
+				),
+			),
+			
+			// Product Type
+			'product_type' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => 'savory',
+				'form' => array(
+					'#type' => 'select',
+					'#title' => 'Type',
+					'#options' => $types,
+					'#required' => TRUE,
+				),
+			),
+			
+			// Product Teaser Img
+			'teaser_img' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'Teaser Image',
+					'#upload_location' => 'public://product_img',
+					'#upload_validators' => array(
+					  'file_validate_size' => array(1048576),
+					 ),
+				),
+			),
+			
+			// Product primary img
+			'primary_img' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'Primary Image',
+					'#upload_location' => 'public://product_img',
+					'#upload_validators' => array(
+					  'file_validate_size' => array(1048576),
+					 ),
+				),
+			),
+			
+			// Product Facts PDF
+			'nutritional_facts' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'Nutritional Facts PDF',
+					'#upload_location' => 'public://product_nutrition',
+				),
+			),
+			
+			// Product description
+			'body' => array(
+				'type' => 'text',
+				'size' => 'medium',
+				'form' => array(
+					'#type' => 'textarea',
+					'#title' => 'Description',
+				),
+			),
+
+		),
+
+	);// /product
+	
+	// Product Page
+	$schema['degrees_product_page'] = array(
+		
+		'description' => 'Base table for product_page',
+		
+		'fields' => array(
+		
+		// Product page title
+		'title' => array(
+			'type' => 'varchar',
+			'length' => 255,
+			'not null' => TRUE,
+			'default' => '',
+			'form' => array(
+				'#type' => 'textfield',
+				'#title' => 'Title',
+				'#required' => TRUE,
+			),
+		),
+			
+		// Product page subhead
+		'subhead' => array(
+			'type' => 'varchar',
+			'length' => 255,
+			'not null' => TRUE,
+			'default' => '',
+			'form' => array(
+				'#type' => 'textfield',
+				'#title' => 'Header for body copy',
+			),
+		),
+			
+		// Product page description
+		'body' => array(
+			'type' => 'text',
+			'size' => 'medium',
+			'form' => array(
+				'#type' => 'textarea',
+				'#title' => 'Description',
+			),
+		),
+		
+		// Product page primary image
+		'primary_img' => array(
+			'type' => 'int',
+			'unsigned' => TRUE,
+			'form' => array(
+				'#type' => 'managed_file',
+				'#title' => 'Primary Image',
+				'#upload_location' => 'public://product_page_img',
+				'#upload_validators'=> array(
+					'file_validate_size' => array(1048576),
+					),
+				),
+			),
+		
+		),
+
+	);// /product page
+
+	// Recipe Items
+	$schema['degrees_recipe'] = array(
+	
+		'description' => 'Base table for Recipes.',
+		
+		'fields' => array(
+		
+			// Recipe Title
+			'title' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Title',
+					'#required' => TRUE,
+				),
+			),
+			
+			// Recipe Type
+			'recipe_type' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => 'savory',
+				'form' => array(
+					'#type' => 'select',
+					'#title' => 'Type',
+					'#required' => TRUE,
+					'#options' => $types
+				),
+			),
+			
+			// Recipe Product
+			'product' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'select',
+					'#title' => 'Product',
+					'#required' => TRUE,
+					'#options' => $product_options,
+				),
+			),
+			
+			// Recipe Teaser Img
+			'teaser_img' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'Teaser Image',
+					'#upload_location' => 'public://recipe_img',
+					'#upload_validators' => array(
+					  'file_validate_size' => array(1048576),
+					 ),
+				),
+			),
+			
+			// Recipe PDF
+			'pdf' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'Recipe PDF',
+					'#description' => 'PDF files only',
+					'#upload_location' => 'public://recipe_pdf',
+					'#upload_validators' => array(
+					  'file_validate_extensions' => array('pdf'),
+					 ),
+				),
+			),
+			
+		),
+	
+	);// /recipe
+
+	// RECIPE PAGE
+	$schema['degrees_recipe_page'] = array(
+	
+		'description' => 'Base table for recipe_page',
+		
+		'fields' => array(
+		
+			// All recipes PDF
+			'all_recipes_pdf' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'All Recipes PDF',
+					'#description' => 'PDF files only',
+					'#upload_location' => 'public://recipe_pdf',
+					'#upload_validators' => array(
+						'file_validate_extensions' => array('pdf'),
+					),
+				),
+			),
+
+		),
+	
+	);// /recipe_page
+
+	// Company Page
+	$schema['degrees_company_page'] = array(
+	
+		'description' => 'Base table for company page',
+		
+		'fields' => array(
+
+			// Primary image
+			'img' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'Header Image',
+					'#upload_location' => 'public://company_img',
+				),
+			),
+
+		),
+	
+	);// /company_page
+
+	// COMPANY SECTION
+	$schema['degrees_company_section'] = array(
+	
+		'description' => 'Base table for company sections.',
+		
+		'fields' => array(
+		
+			// Section Title
+			'title' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Title',
+					'#required' => TRUE,
+				),
+			),
+
+			'parent_id' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+			),
+
+			'parent_type' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+			),
+
+			// Weight
+			'weight' => array(
+				'type' => 'int',
+				'not null' => TRUE,
+				'default' => 0,
+			),
+
+		),
+	
+	);// /company_section
+
+	// COMPANY ITEM
+	$schema['degrees_company_item'] = array(
+	
+		'description' => 'Base table for company items.',
+		
+		'fields' => array(
+		
+			// Item Title
+			'title' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Title',
+					'#required' => TRUE,
+				),
+			),
+
+			// Title hide
+			'title_hide' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE,
+				'default' => 0,
+				'form' => array(
+					'#type' => 'checkbox',
+					'#title' => 'Hide Title',
+					'#description' => 'Hide title on display',
+				),
+			),
+
+			// Item img
+			'img' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'Image',
+					'#upload_location' => 'public://company_item_img',
+					'#upload_validators' => array(
+					  'file_validate_size' => array(1048576),
+					 ),
+				),
+			),
+			
+			// Img alignment
+			'img_align' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => 'right',
+				'form' => array(
+					'#type' => 'select',
+					'#title' => 'Image Alignment',
+					'#description' => 'Only applies when width is column',
+					'#options' => array(
+						'left' => 'Left',
+						'right' => 'Right',
+					),
+				),
+			),
+			
+			// Width
+			'width' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => 'full',
+				'form' => array(
+					'#type' => 'select',
+					'#title' => 'Width',
+					'#description' => 'How should the item look on display',
+					'#options' => array(
+						'full' => 'Full',
+						'column' => 'Column',
+					),
+				),
+			),
+			
+			// Item body
+			'body' => array(
+				'type' => 'text',
+				'size' => 'medium',
+				'form' => array(
+					'#type' => 'textarea',
+					'#title' => 'Body',
+				),
+			),
+
+			'parent_id' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+			),
+
+			'parent_type' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+			),
+
+			// Item weight
+			'weight' => array(
+				'type' => 'int',
+				'not null' => NULL,
+				'default' => 0,
+			),
+		
+		),	
+	
+	);// /company_item
+	
+	// EMPLOYEE
+	$schema['degrees_employee'] = array(
+	
+		'description' => 'Base table for employees.',
+		
+		'fields' => array(
+		
+			// Name
+			'title' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Name',
+					'#required' => TRUE,
+				),
+			),
+			
+			// Image
+			'img' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'Image',
+					'#upload_location' => 'public://employee_img',
+					'#upload_validators' => array(
+					  'file_validate_size' => array(1048576),
+					 ),
+				),
+			),
+			
+			// Description
+			'body' => array(
+				'type' => 'text',
+				'size' => 'medium',
+				'form' => array(
+					'#type' => 'textarea',
+					'#title' => 'Description',
+				),
+			),
+
+			'parent_id' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+			),
+
+			'parent_type' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+			),
+
+			// Item weight
+			'weight' => array(
+				'type' => 'int',
+				'not null' => NULL,
+				'default' => 0,
+			),
+
+		),
+	
+	);// /employee
+
+	// BUY PAGE
+	$schema['degrees_buy_page'] = array(
+	
+		'description' => 'Base table for buy page.',
+		
+		'fields' => array(
+		
+			// Letter PDF
+			'pdf' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'PDF',
+					'#upload_location' => 'public://buy_page_pdf',
+					'#upload_validators' => array(
+						'file_validate_extensions' => array('pdf'),
+					),
+				),
+			),
+			
+			// Body
+			'body' => array(
+				'type' => 'text',
+				'size' => 'medium',
+				'form' => array(
+					'#type' => 'textarea',
+					'#title' => 'Body Text',
+				),
+			),
+		
+		),
+	
+	);
+
+	// LOCATION
+	$schema['degrees_location'] = array(
+	
+		'description' => 'Base table for locations.',
+		
+		'fields' => array(
+			
+			// Title
+			'title' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Title',
+					'#required' => TRUE,
+				),
+			),
+			
+			// Address
+			'address' => array(
+				'type' => 'text',
+				'size' => 'medium',
+				'form' => array(
+					'#type' => 'textarea',
+					'#title' => 'Address',
+					'#required' => TRUE,
+					'#attributes' => array(
+						'class' => array('no-wysiwyg'),
+					),
+				),
+			),
+
+			// Formatted Address
+			'formatted_address' => array(
+				'type' => 'text',
+				'size' => 'medium',
+			),
+
+			// Latitude
+			'latitude' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+			),
+
+			// Longitude
+			'longitude' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+			),
+
+			// Phone Number
+			'phone' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Phone Number',
+				),
+			),
+
+			// Link
+			'link' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Store Website',
+				),
+			),
+
+			// Zip
+			'city' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+			),
+
+			// State
+			'state' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+			),
+
+			// Zip
+			'zip' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+			),
+
+		),
+	
+	);// /location
+
+	// STORE LOGO
+	$schema['degrees_store_logo'] = array(
+	
+		'description' => 'Base table for store logos.',
+		
+		'fields' => array(
+			
+			// Name
+			'title' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Name',
+					'#required' => TRUE,
+				),
+			),
+			
+			// Logo img
+			'img' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'Logo Image',
+					'#upload_location' => 'public://store_logo_img',
+					'#upload_validators' => array(
+					  'file_validate_size' => array(1048576),
+					 ),
+					'#required' => TRUE,
+				),
+			),
+			
+			// Link
+			'link' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Link',
+					'#description' => "(optional) Store's website URL",
+				),
+			),
+			
+			// Weight
+			'weight' => array(
+				'type' => 'int',
+				'not null' => NULL,
+				'default' => 0,
+			),
+			
+		),
+	
+	);
+
+	// CONTACT PAGE
+	$schema['degrees_contact_page'] = array(
+	
+		'description' => 'Base table for contact page.',
+		
+		'fields' => array(
+		
+			// Primary Image
+			'img' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'Image',
+					'#upload_location' => 'public://contact_page_img',
+				),
+			),
+			
+			// Body
+			'body' => array(
+				'type' => 'text',
+				'size' => 'medium',
+				'form' => array(
+					'#type' => 'textarea',
+					'#title' => 'Body Text',
+				),
+			),
+		
+		),
+	
+	);
+	
+	// TERMS PRIVACY
+	$schema['degrees_terms_privacy'] = array(
+	
+		'description' => 'Base table for terms and privacy.',
+		
+		'fields' => array(
+			
+			// Terms
+			'terms' => array(
+				'type' => 'text',
+				'size' => 'medium',
+				'form' => array(
+					'#type' => 'textarea',
+					'#title' => 'Terms',
+				),
+			),
+			
+			// Privacy
+			'privacy' => array(
+				'type' => 'text',
+				'size' => 'medium',
+				'form' => array(
+					'#type' => 'textarea',
+					'#title' => 'Privacy',
+				),
+			),
+			
+		),
+	
+	);
+
+	// TRADE PAGE
+	$schema['degrees_trade_page'] = array(
+	
+		'description' => 'Base table for trade page.',
+		
+		'fields' => array(
+			
+			'img' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'Header Image',
+					'#upload_location' => 'public://trade_page_img',
+					'#upload_validators' => array(
+					  'file_validate_size' => array(1048576),
+					 ),
+				),
+			),
+			
+			'body' => array(
+				'type' => 'text',
+				'size' => 'medium',
+				'form' => array(
+					'#type' => 'textarea',
+					'#title' => 'Body Text',
+				),
+			),
+			
+		),
+	
+	);
+	
+	// TRADE ITEM
+	$schema['degrees_trade_item'] = array(
+	
+		'description' => 'Base table for trade items.',
+		
+		'fields' => array(
+			
+			'title' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Title',
+					'#required' => TRUE,
+				),
+			),
+			
+			'img' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'Thumbnail Img',
+					'#upload_location' => 'public://trade_item_img',
+					'#upload_validators' => array(
+					  'file_validate_size' => array(1048576),
+					 ),
+				),
+			),
+
+			'parent_id' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+			),
+
+			'parent_type' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+			),
+
+			// Item weight
+			'weight' => array(
+				'type' => 'int',
+				'not null' => NULL,
+				'default' => 0,
+			),
+
+		),
+	
+	);
+	
+	// News Items
+	$schema['degrees_news'] = array(
+	
+		'description' => 'Base table for News.',
+		
+		'fields' => array(
+		
+			// News Title
+			'title' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Title',
+					'#required' => TRUE,
+				),
+			),
+			
+			// News Publisher
+			'publisher' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Publisher',
+				),
+			),
+			
+			// News Teaser Img
+			'teaser_img' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'Teaser Image',
+					'#upload_location' => 'public://news_img',
+					'#upload_validators' => array(
+					  'file_validate_size' => array(1048576),
+					 ),
+				),
+			),
+
+			// News Article Link
+			'link' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Link to Article',
+				),
+			),
+
+			// Recipe PDF
+			'article_pdf' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'form' => array(
+					'#type' => 'managed_file',
+					'#title' => 'Article PDF',
+					'#description' => 'PDF files only',
+					'#upload_location' => 'public://news_pdf',
+					'#upload_validators' => array(
+					  'file_validate_extensions' => array('pdf'),
+					 ),
+				),
+			),
+			
+			'body' => array(
+				'type' => 'text',
+				'size' => 'medium',
+				'form' => array(
+					'#type' => 'textarea',
+					'#title' => 'Body Text',
+				),
+			),
+			
+		),
+	
+	);// /news
+
+	// Blog Items
+	$schema['degrees_blog'] = array(
+	
+		'description' => 'Base table for Blog.',
+		
+		'fields' => array(
+		
+			// Blog Post Title
+			'title' => array(
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				'form' => array(
+					'#type' => 'textfield',
+					'#title' => 'Title',
+					'#required' => TRUE,
+				),
+			),
+			
+			'body' => array(
+				'type' => 'text',
+				'size' => 'medium',
+				'form' => array(
+					'#type' => 'textarea',
+					'#title' => 'Body Text',
+				),
+			),
+			
+		),
+	
+	);// /blog
+
+	/*
+	 * Default fields
+	 *
+	 * This array of fields will be added onto the beginning of all schemas.
+	 */
+	$defaults = array(
+
+		'id' => array(
+			'type' => 'serial',
+			'unsigned' => TRUE,
+			'not null' => TRUE,
+			'form' => array(
+				'#type' => 'hidden',
+			),
+		),
+	
+		'created' => array(
+			'type' => 'int',
+			'unsigned' => TRUE,
+			'not null' => TRUE,
+			'default' => 0
+		),
+	
+		'changed' => array(
+			'type' => 'int',
+			'unsigned' => TRUE,
+			'not null' => TRUE,
+			'default' => 0,
+		),
+	
+		'uid' => array(
+			'type' => 'int',
+			'unsigned' => TRUE,
+		),
+		
+		'type' => array(
+			'type' => 'varchar',
+			'length' => 255,
+			'not null' => TRUE,
+			'default' => '',
+		),
+		
+		'type_label' => array(
+			'type' => 'varchar',
+			'length' => 255,
+			'not null' => TRUE,
+			'default' => '',
+		),
+
+	);
+
+	// Loop through schema
+	foreach ( $schema as $index => $item_schema ) {
+		
+		// Merge default fields onto fields array
+		$schema[$index]['fields'] = array_merge($defaults, $schema[$index]['fields']);
+		
+		// Add primary key
+		$schema[$index]['primary key'] = array('id');
+
+	}
+
+	return $schema;
+
+}
