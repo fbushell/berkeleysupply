@@ -15,7 +15,7 @@ function berkeley_home_menu(){
 	$items = array();
 	
 	// Homepage
-	$items['index'] = array(
+	$items['homepage'] = array(
 		'title' => t('Berkeley Supply'),
 		'page callback' => 'berkeley_home_page_build',
 		'file' => 'berkeley_home_page_build.inc',

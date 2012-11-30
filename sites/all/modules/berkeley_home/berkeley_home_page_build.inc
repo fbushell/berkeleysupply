@@ -11,6 +11,14 @@ function berkeley_home_page_build(){
 	// Init vars
 	$module_path = drupal_get_path('module','berkeley_home');
 	$html = '';
+
+	// Adding javascript for fitvid
+	$js_path = "$module_path/js/jquery.easing.1.3.js";
+	drupal_add_js($js_path, array('scope' => 'footer', 'weight' => 1));
+	$js_path = "$module_path/js/init.js";
+	drupal_add_js($js_path, array('scope' => 'footer', 'weight' => 2));
+	$js_path = "$module_path/js/jquery.stellar.min.js";
+	drupal_add_js($js_path, array('scope' => 'footer', 'weight' => 2));
 	
 	
 	 // Build MySQL Query Statement
@@ -24,11 +32,6 @@ function berkeley_home_page_build(){
   // Use drupal's db_query function 
   // $about_query = db_query( $about_query_string );
   // $about_items = $about_query->fetchAssoc();
-
-	
-	// Adding javascript for fitvid
-	//$js_path = "$module_path/js/jquery.fitvids.js";
-	//drupal_add_js($js_path);
 
 	$html = "
 		<div class=\"content\">

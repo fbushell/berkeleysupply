@@ -55,7 +55,7 @@ function clim_js_alter(&$javascript) {
   // Swap out jQuery to use an updated version and move to footer.
   $javascript['misc/jquery.js']['data']   = $jquery_new;
   $javascript['misc/jquery.js']['version']   = $jquery_version;
-  $javascript['misc/jquery.js']['scope']  = 'header';
+  $javascript['misc/jquery.js']['scope']  = 'footer';
   $javascript['misc/jquery.js']['weight'] = 0;
 
   // Unset the rest of Drupal added js

@@ -1,16 +1,21 @@
-<div class="frame">
+<div class="wrapper">
 <header id="header">
 	<div class="container">
-    <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
+    <a href="<?php print $front_page; ?>" id="logo">
       <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>"/>
     </a>
+  <nav id="nav">
+  	<a href="#footer">Footer</a>
+  </nav>
 	</div>
 </header>
-</div>
 
-<div class="wrapper" class="<?php print $classes; ?>"<?php print $attributes; ?>>
+<div class="content" class="<?php print $classes; ?>"<?php print $attributes; ?>>
     <?php print $messages; ?>
     <?php print render($page['content']) ?>
+   	<div id="main-scroller" data-stellar-background-ratio="0.5">
+    	
+    </div>
 </div>
 <div class="stripe-top"></div>
 <div class="stripe-right"></div>
