@@ -1,28 +1,30 @@
 <div class="wrapper">
+<nav id="nav">
+  <a href="html">Home</a>
+  <span>.</span>
+  <a href="#store">Store</a>
+  <span>.</span>
+  <a href="#brands">Brands</a>
+  <span>.</span>
+  <a href="#footer">Contact</a>
+  <span>.</span>
+  <a href="#">Blog</a>
+</nav>
 <header id="header">
 	<div class="container">
-    <a href="<?php print $front_page; ?>" id="logo">
+   <div id="logo"> 
+    <a href="<?php print $front_page; ?>">
       <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>"/>
     </a>
-  <nav id="nav">
-  	<a href="#footer">Footer</a>
-  </nav>
+  </div>
 	</div>
 </header>
 
 <div class="content" class="<?php print $classes; ?>"<?php print $attributes; ?>>
     <?php print $messages; ?>
     <?php print render($page['content']) ?>
-   	<div id="main-scroller" data-stellar-background-ratio="0.5">
-    	
-    </div>
 </div>
-<div class="stripe-top"></div>
+<!-- <div class="stripe-top"></div>
 <div class="stripe-right"></div>
 <div class="stripe-bottom"></div>
-<div class="stripe-left"></div>
-
-<footer id="footer">
-  <div class="container">
-  </div>
-</footer> 
+<div class="stripe-left"></div> -->

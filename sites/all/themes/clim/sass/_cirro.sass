@@ -7,12 +7,6 @@
 //  General Classes
 // ----------------------------------------------------------------------------
 
-#logo
-	position: absolute
-	top: 0
-	left: 37%
-	top: 30px
-
 .stripe-left
 	position: fixed
 	width: 10px
@@ -54,11 +48,6 @@
 	-moz-background-size: cover
 	-o-background-size: cover
 	background-size: cover
-
-#footer
-	height: 200px
-	background: yellow
-	width: 100%
 
 .fixed
 	position: fixed
@@ -139,15 +128,40 @@
 //  Purrrdy Stuff
 // ----------------------------------------------------------------------------
 
+#nav
+	position: fixed
+	left: 0px
+	right: 0
+	top: 0px
+	padding: 15px 0
+	font-weight: bold
+	text-align: center
+	a
+		color: black
+		font-size: 17px
+		border-bottom: none
+		&:hover
+			border-bottom: 2px solid
+	span
+		margin: 0 30px
+		font-size: 30px
+		font-weight: 300
+
 #header 
 	.container
-		margin: 30px auto
+		margin: 100px auto
 		padding: 0
-	#main-menu 
-		float: right
-		ul
-			margin: 0
-			li
-				display: inline
-				margin-left: 15px
+
+
+#logo
+	max-width: 500px
+	margin: 200px auto
+	a
+		border-bottom: none
+
+#map_canvas
+	min-height: 500px
+	border-top: 2px solid
+
+
 
