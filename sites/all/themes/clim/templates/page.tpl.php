@@ -7,8 +7,6 @@
   <a href="#brands">Brands</a>
   <span>.</span>
   <a href="#footer">Contact</a>
-  <span>.</span>
-  <a href="#">Blog</a>
 </nav>
 <header id="header">
 	<div class="container">
