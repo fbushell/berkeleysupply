@@ -3,9 +3,10 @@
 	$(document).ready(function(){	
 
 		// Init
-	 
-		var	$window = $(window),
-				$nav    = $('#nav a');
+	 	var	
+				$window     = $(window),
+				$nav        = $('#nav a'),
+				$flexslider = $('.flexslider');
 
 
 
@@ -22,7 +23,7 @@
 				// Scroll to href of clicked link
 				$('html, body').stop().animate({
 
-	          scrollTop: $($link.attr('href')).offset().top
+	          scrollTop: $($link.attr('href')).offset().top - 80
 
 	      }, 1500,'easeInOutExpo');
 
@@ -37,11 +38,47 @@
 		// ----------------------------------------------------------
 		// This pic is stellar
 		// ----------------------------------------------------------
-		$(function(){
+		// $(function(){
 
-			$.stellar();
+		// 	$.stellar();
 
-		});
+		// });
+
+	
+		// ----------------------------------------------------------
+		// Flexslider init
+		// ----------------------------------------------------------
+    $flexslider.flexslider({   		
+  		directionNav: false 
+
+    });
+
+
+    // ----------------------------------------------------------
+		// Scroller magic
+		// ----------------------------------------------------------
+  //   $(function setScroller() {
+
+		// 	var $flexslider_pos = $flexslider.position().top;
+
+		// 	var $scroller_pos = $flexslider.position().top;
+
+		// 	console.log(top);
+
+			
+		// 	if( browserW > 767) {
+
+		// 		changeColorIdentity();
+
+		// 	}
+		// });
+
+		// function changeColorIdentity() {
+			
+		// 	$nav.css("color", "white");
+
+		// }
+
 
 
 

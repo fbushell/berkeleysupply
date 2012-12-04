@@ -2,7 +2,7 @@
 <nav id="nav">
   <a href="html">Home</a>
   <span>.</span>
-  <a href="#store">Store</a>
+  <a href="#about">About</a>
   <span>.</span>
   <a href="#brands">Brands</a>
   <span>.</span>

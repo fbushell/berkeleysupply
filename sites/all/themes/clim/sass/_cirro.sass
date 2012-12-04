@@ -39,6 +39,10 @@
 	left: 0
 	bottom: 0
 
+.max-text
+	max-width: 600px
+	margin: 50px auto
+
 #main-scroller
 	height: 700px
 	width: 100%
@@ -66,6 +70,9 @@
 
 .clearfix
 	overflow: hidden
+
+.img-full img
+	width: 100%
 
 .underline
 	border-bottom: $underlineStyle black
@@ -133,6 +140,7 @@
 	left: 0px
 	right: 0
 	top: 0px
+	z-index: 400
 	padding: 15px 0
 	font-weight: bold
 	text-align: center
@@ -155,13 +163,178 @@
 
 #logo
 	max-width: 500px
-	margin: 200px auto
+	margin: 200px auto 400px auto
 	a
 		border-bottom: none
 
 #map_canvas
-	min-height: 500px
+	min-height: 800px
 	border-top: 2px solid
 
+.large-section
+	overflow: hidden
+	article
+		margin: 0 60px
+		.brand-item
+			width: 20%
+			float: left
+
+section.gap
+	margin: 100px 0 300px
+
+.hours
+	margin: 20px 0
+
+// Flexslider
+//----------------------------------------------
+	
+.flex-container a:active,
+.flexslider a:active,
+.flex-container a:focus,
+.flexslider a:focus
+	outline: none
+	
+.slides,
+.flex-control-nav,
+.flex-direction-nav
+	margin: 0
+	padding: 0
+	list-style: none
+	
+.carousel 
+	.slides li
+		+opacity(30)
+		+transition(0.3s)
+		&.flex-active-slide
+			+opacity(100)
+			&:hover
+				+opacity(100)
+		&:hover
+			+opacity(50)
+			cursor: pointer
+
+.flexslider
+	margin: 0
+	padding: 0
+	.slides > li 
+		display: none 
+		-webkit-backface-visibility: hidden
+			
+
+.flexslider .slides img
+	display: block
+	
+.flex-pauseplay span
+	text-transform: capitalize
+
+.slides:after
+	content: "."
+	display: block
+	clear: both
+	visibility: hidden
+	line-height: 0
+	height: 0
+	
+html[xmlns] .slides 
+	display: block
+	
+* html .slides 
+	height: 1%
+
+.no-js .slides > li:first-child 
+	display: block
+
+
+.flexslider
+	margin: 0 0 20px
+	background: #fff
+	position: relative
+	zoom: 1
+	border: 2px solid
+	
+.flex-viewport
+	max-height: 2000px
+	-webkit-transition: all 1s ease
+	-moz-transition: all 1s ease
+	transition: all 1s ease
+	
+.loading 
+	min-height: 400px
+	background-color: white
+	background-image: url(../images/loading.gif) no-repeat center center
+
+	
+.flexslider .slides 
+	zoom: 1
+	max-width: 1940px
+	margin: 0 auto
+
+.carousel li 
+	margin-right: 5px
+
+// Direction Nav
+
+.flex-direction-nav
+	a
+		width: 40px
+		height: 40px
+		margin: -20px 0 0
+		display: block
+		background: url(../images/dir_nav_arrows.png) no-repeat 0 0
+		position: absolute
+		top: 50%
+		cursor: pointer
+		text-indent: -9999px
+		opacity: 0
+		-webkit-transition: all .3s ease
+	.flex-next
+		background-position: 0 100%
+		right: 5px
+	.flex-prev
+		left: 5px
+
+.flexslider:hover
+	.flex-next
+		opacity: 0.8
+		right: 5px
+	.flex-prev
+		opacity: 0.8
+		left: 5px
+	.flex-next:hover, .flex-prev:hover
+		opacity: 1
+
+.flex-direction-nav .disabled
+	opacity: .3!important
+	filter: alpha(opacity = 30)
+	cursor: default
+
+// Control Nav
+
+.flex-control-nav
+	width: 100%
+	position: absolute
+	bottom: -25px
+	text-align: center
+	li
+		margin-right: 10px
+		display: inline-block
+		zoom: 1
+		*display: inline
+
+.flex-control-paging li a
+	width: 8px
+	height: 8px
+	display: block
+	background: #ccc
+	cursor: pointer
+	text-indent: -9999px
+	+border-radius(20px)
+	border-bottom: none
+	padding: 0
+	&:hover
+		background: #999
+	&.flex-active
+		background: #000
+		cursor: default
 
 

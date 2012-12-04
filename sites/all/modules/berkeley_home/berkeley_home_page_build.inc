@@ -9,8 +9,12 @@
 function berkeley_home_page_build(){
 
 	// Init vars
-	$module_path = drupal_get_path('module','berkeley_home');
-	$html = '';
+	$module_path  = drupal_get_path('module','berkeley_home');
+	$brand        = '';
+	$logo_grouped = '';
+	$html         = '';
+	$slider_imgs  = '';
+
 
 	// Adding javascript
 	$js_path = "$module_path/js/jquery.easing.1.3.js";
@@ -21,31 +25,123 @@ function berkeley_home_page_build(){
 	drupal_add_js($js_path, array('scope' => 'footer', 'weight' => 2));
 	$js_path = "$module_path/js/jquery.stellar.min.js";
 	drupal_add_js($js_path, array('scope' => 'footer', 'weight' => 3));
-	
-	
-	 // Build MySQL Query Statement
-  $about_query_string = "
-     SELECT about_page_text, about_page_vimeo_id, id
-      FROM cirro_about_page
-      WHERE id = 1
+	$js_path = "$module_path/js/jquery.flexslider-min.js";
+	drupal_add_js($js_path, array('scope' => 'footer', 'weight' => 3));
+
+  // Build query for brands
+  $brands_query_string = "
+  	SELECT i.field_brand_logo_fid, i.delta, f.fid, f.uri
+		FROM field_data_field_brand_logo AS i
+		JOIN file_managed AS f
+		ON i.field_brand_logo_fid = f.fid
+		ORDER BY i.delta ASC
   ";
   
+  // Use drupal's db_query function 
+  $brands_query = db_query( $brands_query_string );
+  $brand_items = $brands_query->fetchAll();
+
+  // Loop through brands
+  foreach ( $brand_items as $logo ) {
+
+  	// Init
+  	$logo_uri = $logo->uri;
+
+  	$img_vars = array(
+        'style_name' => 'logo',
+        'path' => $logo_uri,
+        'width' => '',
+        'height' => '',
+		);
+		
+		// Theme the image with the style
+		$img_styled = theme_image_style($img_vars);
+
+		$logo_final = $img_styled;
+
+  	$brand .= "
+  		<div class=\"brand-item\">
+	  		$logo_final
+	  	</div>
+  	";
+
+  }
+
+	// Query for about text
+	$about_query_string = "
+		SELECT field_about_text_value
+		FROM field_data_field_about_text
+	";
+
+	// Query for store images
+	$store_query_string = "
+		SELECT s.field_store_images_fid, s.delta, f.fid, f.uri
+		FROM field_data_field_store_images AS s
+		JOIN file_managed AS f
+		ON s.field_store_images_fid = f.fid
+		ORDER BY s.delta
+	";
+
+	// Use drupal's db_query function 
+  $about_query = db_query( $about_query_string );
+  $about_text = $about_query->fetchAll();
 
   // Use drupal's db_query function 
-  // $about_query = db_query( $about_query_string );
-  // $about_items = $about_query->fetchAssoc();
+  $store_query = db_query( $store_query_string );
+  $store_images = $store_query->fetchAll();
+
+  // About page text
+  $about_text_final = $about_text[0]->field_about_text_value;
+
+  //dsm($store_images);
+
+  // Loop through store images
+  foreach ( $store_images as $key => $image ) {
+  	
+  	// Init
+  	$store_uri = $image->uri;
+
+  	$store_img_vars = array(
+	    'style_name' => 'store',
+	    'path' => $store_uri,
+	    'width' => '',
+	    'height' => '',
+		);
+		
+		// Theme the image with the style
+		$store_img_styled = theme_image_style($store_img_vars);
+
+		$slider_img = $store_img_styled;
+
+		$slider_imgs .= "
+			<li>
+				$slider_img
+			</li>
+		";
+
+  }
+
 
   $about = "
-  	<div id=\"store\" class=\"text-center\">
-  		<div class=\"container\">
-  			<h1>Store</h1>
-  			<p>Yo this is the store, what of it</p>
-  		</div>
-  	</div>
+  	<section id=\"about\" class=\"text-center large-section gap\">
+  		<article>
+  			<h1>About</h1>
+  			<div class=\"max-text\">
+  				$about_text_final
+  			</div>
+  			<div class=\"flexslider\">
+  				<ul class=\"slides\">
+  					$slider_imgs
+  				</ul>
+  			</div>
+  		</article>
+  	</section>
   ";
 
   $scroller = "
-  	<img src=\"/sites/all/themes/clim/images/wood.jpg\" />
+  	<section class=\"img-full\">
+	  	<img src=\"/sites/all/themes/clim/images/wood.jpg\" />
+  	</section>
   ";
 
   // $scroller = "
@@ -53,12 +149,12 @@ function berkeley_home_page_build(){
   // ";
 
   $brands = "
-  	<div id=\"brands\" class=\"text-center\">
-  		<div class=\"container\">
+  	<section id=\"brands\" class=\"text-center large-section gap\">
+  		<article>
   			<h1>Brands</h1>
-  			Here are the brands
-  		</div>
-  	</div>
+	  			$brand
+  		</article>
+  	</section>
   ";
 
   $footer = "
@@ -72,7 +168,15 @@ function berkeley_home_page_build(){
 		    <div id=\"phone\">
 		      603 . 315 . 3187
 		    </div>
+		    <div class=\"hours\">
+		    	<b>Hours</b> </br>
+		    	TUE- SAT </br>
+		    	8 - 6 </br>
+		    </div>
 		    <div id=\"social\">
+		    	<a href=\"//https://www.facebook.com/BerkeleySupplyCO?fref=ts\" target=\"_blank\">
+		    		Facebook
+		    	</a>
 		    </div>
 		  </div>
 		</footer> 
