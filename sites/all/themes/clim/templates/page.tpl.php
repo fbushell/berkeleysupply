@@ -6,7 +6,9 @@
   <span>.</span>
   <a href="#brands">Brands</a>
   <span>.</span>
-  <a href="#footer">Contact</a>
+  <a href="#footer">Visit</a>
+  <span>.</span>
+  <a href="//blog.berkeleysupply.com" target="_blank">Blog</a>
 </nav>
 <header id="header">
 	<div class="container">

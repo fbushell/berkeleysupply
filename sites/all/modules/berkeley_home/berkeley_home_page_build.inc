@@ -161,7 +161,7 @@ function berkeley_home_page_build(){
   	<footer id=\"footer\" class=\"text-center\">
 		  <div class=\"container\">
 		    <div id=\"address\">
-		      <h1>Contact</h1>
+		      <h1>Visit</h1>
 		      4405 West 43rd Ave </br>
 		      Denver, Colorado 80212
 		    </div>

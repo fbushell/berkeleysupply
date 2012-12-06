@@ -1,6 +1,0 @@
-name = Berkeley Supply Items Info
-description = Define entity types and schemas
-core = 7.x
-package = Cirro
-
-dependencies[] = cirro_core
