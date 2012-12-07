@@ -24,7 +24,3 @@
     <?php print $messages; ?>
     <?php print render($page['content']) ?>
 </div>
-<!-- <div class="stripe-top"></div>
-<div class="stripe-right"></div>
-<div class="stripe-bottom"></div>
-<div class="stripe-left"></div> -->

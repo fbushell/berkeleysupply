@@ -139,11 +139,11 @@ function berkeley_home_page_build(){
   ";
 
   $scroller = "
-  	<section class=\"img-full\">
-	  	<img src=\"/sites/all/themes/clim/images/wood.jpg\" />
+  	<section class=\"img-full\" data-stellar-background-ratio=\"0.5\">
   	</section>
   ";
 
+  // <img src=\"/sites/all/themes/clim/images/wood.jpg\" />
   // $scroller = "
   // 	<div id=\"main-scroller\"></div>
   // ";
@@ -159,28 +159,37 @@ function berkeley_home_page_build(){
 
   $footer = "
   	<footer id=\"footer\" class=\"text-center\">
-		  <div class=\"container\">
-		    <div id=\"address\">
-		      <h1>Visit</h1>
-		      4405 West 43rd Ave </br>
-		      Denver, Colorado 80212
-		    </div>
-		    <div id=\"phone\">
-		      603 . 315 . 3187
-		    </div>
-		    <div class=\"hours\">
+		  	<h1>Visit</h1>
+		  	 <div class=\"hours third\">
 		    	<b>Hours</b> </br>
 		    	TUE- SAT </br>
 		    	8 - 6 </br>
 		    </div>
-		    <div id=\"social\">
-		    	<a href=\"//https://www.facebook.com/BerkeleySupplyCO?fref=ts\" target=\"_blank\">
-		    		Facebook
-		    	</a>
+		    <div id=\"address\" class=\"third\">
+		      4405 West 43rd Ave </br>
+		      Denver, Colorado 80212
+		      <div id=\"phone\">
+			      603 . 315 . 3187
+			    </div>
 		    </div>
-		  </div>
+		    <div id=\"social\" class=\"third\">
+		    	<div class=\"social-icon\">
+		    		<a href=\"mailto:eli@berkeleysupply.com\" target=\"_blank\">Email
+		    		</a>
+		    	</div>
+		    	<div class=\"social-icon\">
+		      	<a href=\"//www.facebook.com/BerkeleySupplyCO?fref=ts\" target=\"_blank\">Facebook</a>
+		     	</div>
+		     	<div class=\"social-icon\">
+		      	<a href=\"//twitter.com/BerkeleySupply/statuses/273145572674899968\" target=\"_blank\">Twitter</a>
+		      </div>
+		      <div class=\"social-icon\">
+			      <a href=\"//instagram.com/berkeleysupply\" target=\"_blank\">Instagram</a>
+			     </div>
+				</div>
 		</footer> 
   ";
+
 
   $map = "
   	 <div id=\"map_canvas\" style=\"width:100%; height:100%\"></div>
