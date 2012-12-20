@@ -162,14 +162,14 @@ function berkeley_home_page_build(){
 		  	<h1>Visit</h1>
 		  	 <div class=\"hours third\">
 		    	<b>Hours</b> </br>
-		    	TUE- SAT </br>
-		    	8 - 6 </br>
+					11AM —  6PM &nbsp; &nbsp;  TUE — SAT<br>
+					CLOSED SUN & MON
 		    </div>
 		    <div id=\"address\" class=\"third\">
 		      4405 West 43rd Ave </br>
 		      Denver, Colorado 80212
 		      <div id=\"phone\">
-			      603 . 315 . 3187
+			      720 . 445 . 6818
 			    </div>
 		    </div>
 		    <div id=\"social\" class=\"third\">
