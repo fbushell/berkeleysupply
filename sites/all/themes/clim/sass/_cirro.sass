@@ -44,10 +44,13 @@
 	margin: 50px auto
 
 #main-scroller
-	height: 700px
-	width: 100%
+	height: 600px
+	width: 95%
 	margin: 400px 0
-	background: url(http://media.mintdesignblog.com/2011/11/1.jpg) no-repeat center center fixed
+	background-image: url(http://media.mintdesignblog.com/2011/11/1.jpg) 
+	background-repeat: no-repeat 
+	background-position: center
+	background-attachment: fixed
 	-webkit-background-size: cover
 	-moz-background-size: cover
 	-o-background-size: cover
@@ -77,17 +80,30 @@
 
 .img-full
 	width: 100%
-	height: 700px
-	background: url(../images/wood.jpg)
+	height: 500px
+	background-image: url(../images/wood.jpg)
 	background-repeat: no-repeat
-	background-position: center center
+	background-position: center
 	background-attachment: fixed
 	-webkit-background-size: cover
 	-moz-background-size: cover
 	-o-background-size: cover
 	background-size: cover
-	border-top: 2px solid black
-	border-bottom: 2px solid black
+	border: 2px solid black
+
+.img-full-workers
+	width: 100%
+	height: 500px
+	background-image: url(../images/workers.jpg)
+	background-repeat: no-repeat
+	background-position: center
+	background-attachment: fixed
+	-webkit-background-size: cover
+	-moz-background-size: cover
+	-o-background-size: cover
+	background-size: cover
+	border: 2px solid black
+
 
 .underline
 	border-bottom: $underlineStyle black
@@ -160,9 +176,10 @@
 	right: 0
 	top: 0px
 	z-index: 400
-	padding: 0 0 15px 0
+	padding: 15px 0
 	font-weight: bold
 	text-align: center
+	background: rgba(255,255,255,0.5)
 	a
 		color: black
 		font-size: 17px
@@ -170,7 +187,8 @@
 		&:hover
 			border-bottom: 2px solid
 	span
-		margin: 0 30px
+		margin: 0 25px
+		line-height: 0
 		font-size: 30px
 		font-weight: 300
 
@@ -181,8 +199,9 @@
 
 
 #logo
-	max-width: 500px
-	margin: 200px auto 400px auto
+	width: 90%
+	max-width: 400px
+	margin: 100px auto 100px auto
 	a
 		border-bottom: none
 
@@ -196,7 +215,9 @@
 .large-section
 	overflow: hidden
 	article
-		margin: 0 60px
+		width: 90%
+		max-width: 1000px
+		margin: 0 auto
 		.brand-item
 			width: 20%
 			float: left

@@ -143,6 +143,11 @@ function berkeley_home_page_build(){
   	</section>
   ";
 
+  $scroller_two = "
+  	<section class=\"img-full-workers\" data-stellar-background-ratio=\"0.5\">
+  	</section>
+  ";
+
   // <img src=\"/sites/all/themes/clim/images/wood.jpg\" />
   // $scroller = "
   // 	<div id=\"main-scroller\"></div>
@@ -199,6 +204,7 @@ function berkeley_home_page_build(){
 		<div class=\"content\">
 			$scroller
 			$about
+			$scroller_two
 			$brands
 			$footer
 			$map

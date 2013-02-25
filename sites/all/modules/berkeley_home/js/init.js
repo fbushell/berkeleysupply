@@ -120,10 +120,13 @@
 
 			  var map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 
+			  var iconBase = '/sites/all/themes/clim/images/marker.png';
+
 			  // Map marker
 			  var marker = new google.maps.Marker({
 			      position: Latlng,
-			      map: map
+			      map: map,
+			      icon: iconBase
 			      //animation: google.maps.Animation.DROP
 			      //title:"Berkeley Supply"
 			  });
